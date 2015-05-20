@@ -1,0 +1,42 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>avec changement en image</title>
+  <script src="build/tracking-min.js"></script>
+ <link rel="stylesheet" type="text/css" href="styles/style.css">
+</head>
+<body>
+	<div class="container">
+		<div class="div_container">
+			<video src="medias/minions.mp4" id="myVideo" width="800" height="530" preload autoplay loop muted controls></video>
+			<img id="img" src="medias/book1.png">
+			<canvas id="canvas" width="800" height="500"></canvas>
+		</div>
+	</div>
+  
+  <script>
+  var img = document.getElementById('img');
+  var canvas = document.getElementById('canvas');
+  var context = canvas.getContext('2d');
+
+  var colors = new tracking.ColorTracker(['magenta', 'cyan', 'yellow']);
+  colors.on('track', function(event) {
+  	context.clearRect(0, 0, canvas.width, canvas.height);
+    if (event.data.length === 0) {
+      //pas de couleur a afficher
+      console.log("pas de couleurs qui correspondent au track!")
+    } else {
+      event.data.forEach(function(rect) {
+      	
+        context.drawImage(img, rect.x, rect.y, rect.width, rect.height);
+
+        console.log(rect.x, rect.y, rect.height, rect.width, rect.color, img.x);
+      });
+    }
+  });
+
+  tracking.track('#myVideo', colors);
+  </script>
+</body>
+</html>

@@ -1,0 +1,9 @@
+.container {
+    background-color: black;
+  }
+  video, img, canvas {
+    position: absolute;
+  }
+  img{
+  	visibility: hidden;
+  }
